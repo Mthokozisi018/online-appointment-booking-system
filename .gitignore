@@ -26,5 +26,9 @@ coverage/
 playwright-report/
 test-results/
 
+# Separate local frontend workspaces/repos, not part of the Django backend deploy.
+greenchoice-workstation/
+careconnect-v2/
+
 .DS_Store
 Thumbs.db

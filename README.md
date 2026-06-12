@@ -2,10 +2,11 @@
 
 GreenChoice is a staff-only inventory management system for the GreenChoice MVP. Customers do not log in.
 
-The current system is split into:
+The current system is split across two GitHub/Vercel deploy surfaces:
 
 - `booking_system/` and `careconnect_v2_api/`: Django REST Framework backend under `/api/v2/`
-- `greenchoice-workstation/`: Next.js frontend deployed to Vercel
+- `Mthokozisi018/online-appointment-booking-system`: Django backend repo
+- `Mthokozisi018/CannabisRecommendation`: Next.js frontend repo deployed to Vercel as `greenchoice-workstation`
 - `render.yaml`: Render blueprint for the hosted Django API and PostgreSQL database
 
 ## Staff Roles
