@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: greenchoice-api
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
+    preDeployCommand: python manage.py migrate && python manage.py seed_greenchoice_staff && python manage.py seed_greenchoice_demo
+    startCommand: gunicorn booking_system.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DJANGO_DEBUG
+        value: "false"
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      - key: DJANGO_ALLOWED_HOSTS
+        value: greenchoice-api.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: greenchoice-postgres
+          property: connectionString
+      - key: DATABASE_SSL_REQUIRE
+        value: "true"
+      - key: FRONTEND_URL
+        value: https://greenchoice-workstation.vercel.app
+      - key: GREENCHOICE_FRONTEND_URL
+        value: https://greenchoice-workstation.vercel.app
+      - key: CORS_ALLOWED_ORIGINS
+        value: https://greenchoice-workstation.vercel.app
+      - key: CSRF_TRUSTED_ORIGINS
+        value: https://greenchoice-workstation.vercel.app
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: CSRF_COOKIE_SECURE
+        value: "true"
+      - key: SECURE_SSL_REDIRECT
+        value: "false"
+
+databases:
+  - name: greenchoice-postgres
+    plan: free
+    region: oregon
